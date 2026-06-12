@@ -1,4 +1,4 @@
-Feature: Login Test
+Feature: Login
 
   Scenario: Login berhasil
     Given saya membuka halaman login
@@ -12,8 +12,8 @@ Feature: Login Test
     And saya klik tombol login
     Then saya gagal login
 
-  Scenario: Login kosong (boundary)
+  Scenario: Login kosong
     Given saya membuka halaman login
-    When saya tidak memasukkan username dan password
+    When saya memasukkan username kosong
     And saya klik tombol login
-    Then saya melihat validasi error
+    Then saya melihat error kosong

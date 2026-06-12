@@ -1,47 +1,37 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
 
 public class LoginPage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    WebDriver driver;
+    WebDriverWait wait;
 
-    private By username = By.id("username");
-    private By password = By.id("password");
-    private By loginBtn = By.cssSelector("button[type='submit']");
-    private By message = By.id("flash");
+    By username = By.id("username");
+    By password = By.id("password");
+    By loginBtn = By.cssSelector("button[type='submit']");
+    By message = By.id("flash");
 
     public LoginPage() {
 
         ChromeOptions options = new ChromeOptions();
 
-        boolean isHeadless = Boolean.parseBoolean(
-                System.getProperty("headless", "false")
-        );
+        boolean isCI = System.getenv("CI") != null;
 
-        if (isHeadless) {
+        if (isCI) {
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
-            options.addArguments("--window-size=1920,1080");
-
-            // 🔥 FIX CI
-            options.setBinary("/usr/bin/google-chrome");
         }
 
-        options.addArguments("--remote-allow-origins=*");
-
-        driver = new ChromeDriver(options);
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.driver = new ChromeDriver(options);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void open() {

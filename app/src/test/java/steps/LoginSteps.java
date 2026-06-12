@@ -27,7 +27,7 @@ public class LoginSteps {
         loginPage.inputPassword("wrong");
     }
 
-    @When("saya tidak memasukkan username dan password")
+    @When("saya memasukkan username kosong")
     public void inputEmpty() {
         loginPage.inputUsername("");
         loginPage.inputPassword("");
@@ -50,8 +50,8 @@ public class LoginSteps {
         loginPage.close();
     }
 
-    @Then("saya melihat validasi error")
-    public void emptyValidation() {
+    @Then("saya melihat error kosong")
+    public void empty() {
         assertTrue(loginPage.getMessage().contains("Your username is invalid!"));
         loginPage.close();
     }
