@@ -1,8 +1,7 @@
 package pages;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.chrome.*;
 import org.openqa.selenium.support.ui.*;
 
 import java.time.Duration;
@@ -24,6 +23,7 @@ public class LoginPage {
         boolean isCI = System.getenv("CI") != null;
 
         if (isCI) {
+            options.setBinary("/usr/bin/chromium-browser"); // 🔥 INI PENTING
             options.addArguments("--headless=new");
             options.addArguments("--no-sandbox");
             options.addArguments("--disable-dev-shm-usage");
