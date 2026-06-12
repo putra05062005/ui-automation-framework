@@ -33,6 +33,9 @@ public class LoginPage {
             options.addArguments("--disable-dev-shm-usage");
             options.addArguments("--disable-gpu");
             options.addArguments("--window-size=1920,1080");
+
+            // 🔥 FIX CI
+            options.setBinary("/usr/bin/google-chrome");
         }
 
         options.addArguments("--remote-allow-origins=*");
