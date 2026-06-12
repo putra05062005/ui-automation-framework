@@ -26,6 +26,10 @@ jobs:
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
+      # 🔥 INI YANG KURANG TADI
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
       - name: Run Test
         run: ./gradlew test -Dheadless=true
 
