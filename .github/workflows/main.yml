@@ -26,19 +26,11 @@ jobs:
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
-      # 🔥 FIX PERMISSION
-      - name: Grant permission
+      - name: Grant execute permission
         run: chmod +x gradlew
 
-      # 🔥 DEBUG (optional tapi bagus)
-      - name: Check Chrome
-        run: which google-chrome
-
-      - name: Check Driver
-        run: which chromedriver
-
       - name: Run Test
-        run: ./gradlew test -Dheadless=true --info
+        run: ./gradlew clean test -Dheadless=true
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
