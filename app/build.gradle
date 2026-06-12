@@ -12,7 +12,6 @@ dependencies {
     testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.18.0'
     testImplementation 'org.junit.platform:junit-platform-suite:1.10.2'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.2'
-    testImplementation 'io.github.bonigarcia:webdrivermanager:5.8.0'
 }
 
 test {
