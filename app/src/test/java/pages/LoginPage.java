@@ -22,11 +22,15 @@ public class LoginPage {
 
         ChromeOptions options = new ChromeOptions();
 
-        // 🔥 CI READY
-        options.addArguments("--headless=new");
-        options.addArguments("--no-sandbox");
-        options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--disable-gpu");
+        // 🔥 AUTO DETECT CI (kalau di GitHub Actions)
+        boolean isCI = System.getenv("CI") != null;
+
+        if (isCI) {
+            options.addArguments("--headless=new");
+            options.addArguments("--no-sandbox");
+            options.addArguments("--disable-dev-shm-usage");
+            options.addArguments("--disable-gpu");
+        }
 
         this.driver = new ChromeDriver(options);
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -37,10 +41,12 @@ public class LoginPage {
     }
 
     public void inputUsername(String user) {
+        driver.findElement(username).clear();
         driver.findElement(username).sendKeys(user);
     }
 
     public void inputPassword(String pass) {
+        driver.findElement(password).clear();
         driver.findElement(password).sendKeys(pass);
     }
 
@@ -55,6 +61,8 @@ public class LoginPage {
     }
 
     public void close() {
-        driver.quit();
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }
