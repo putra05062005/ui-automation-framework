@@ -2,6 +2,7 @@ package steps;
 
 import io.cucumber.java.en.*;
 import pages.LoginPage;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginSteps {
@@ -9,7 +10,7 @@ public class LoginSteps {
     LoginPage loginPage;
 
     @Given("saya membuka halaman login")
-    public void openLoginPage() {
+    public void openLogin() {
         loginPage = new LoginPage();
         loginPage.open();
     }
@@ -26,7 +27,7 @@ public class LoginSteps {
         loginPage.inputPassword("wrong");
     }
 
-    @When("saya memasukkan username dan password kosong")
+    @When("saya tidak memasukkan username dan password")
     public void inputEmpty() {
         loginPage.inputUsername("");
         loginPage.inputPassword("");
@@ -38,16 +39,20 @@ public class LoginSteps {
     }
 
     @Then("saya berhasil login")
-    public void successLogin() {
+    public void success() {
         assertTrue(loginPage.getMessage().contains("You logged into a secure area!"));
         loginPage.close();
     }
 
     @Then("saya gagal login")
-    public void failedLogin() {
-        assertTrue(loginPage.getMessage().contains("Your username is invalid!")
-                || loginPage.getMessage().contains("Your password is invalid!")
-                || loginPage.getMessage().contains("Your username is empty!"));
+    public void failed() {
+        assertTrue(loginPage.getMessage().contains("Your username is invalid!"));
+        loginPage.close();
+    }
+
+    @Then("saya melihat validasi error")
+    public void emptyValidation() {
+        assertTrue(loginPage.getMessage().contains("Your username is invalid!"));
         loginPage.close();
     }
 }

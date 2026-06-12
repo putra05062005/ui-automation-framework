@@ -9,9 +9,6 @@ import static io.cucumber.junit.platform.engine.Constants.*;
 @Suite
 @SelectClasspathResource("features")
 @ConfigurationParameter(key = GLUE_PROPERTY_NAME, value = "steps")
-@ConfigurationParameter(
-    key = PLUGIN_PROPERTY_NAME,
-    value = "pretty, html:build/reports/cucumber-report.html"
-)
+@ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty, html:build/reports/cucumber-report.html")
 public class TestRunner {
 }
