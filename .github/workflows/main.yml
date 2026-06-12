@@ -1,35 +1,35 @@
 name: Automation Test CI
 
 on:
-push:
-branches: [ "main" ]
-pull_request:
-branches: [ "main" ]
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-test:
-runs-on: ubuntu-latest
+  test:
+    runs-on: ubuntu-latest
 
-```
-steps:
-  - name: Checkout Repository
-    uses: actions/checkout@v4
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-  - name: Setup Java
-    uses: actions/setup-java@v4
-    with:
-      distribution: 'temurin'
-      java-version: '17'
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
-  - name: Give permission to Gradle
-    run: chmod +x gradlew
+      - name: Give permission to Gradle
+        run: chmod +x gradlew
 
-  - name: Run Tests
-    run: ./gradlew test
+      - name: Run Tests
+        run: ./gradlew test
 
-  - name: Upload Test Report
-    uses: actions/upload-artifact@v4
-    with:
-      name: cucumber-report
-      path: app/build/reports/
-```
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: app/build/reports/
