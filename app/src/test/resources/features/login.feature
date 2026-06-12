@@ -1,4 +1,4 @@
-Feature: Login
+Feature: Login Feature
 
   Scenario: Login berhasil
     Given saya membuka halaman login
@@ -10,10 +10,10 @@ Feature: Login
     Given saya membuka halaman login
     When saya memasukkan username dan password yang salah
     And saya klik tombol login
-    Then muncul pesan error
+    Then saya gagal login
 
   Scenario: Login kosong (boundary)
     Given saya membuka halaman login
-    When saya memasukkan username dan password yang salah
+    When saya memasukkan username dan password kosong
     And saya klik tombol login
-    Then muncul pesan error
+    Then saya gagal login

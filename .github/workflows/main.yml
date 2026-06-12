@@ -22,19 +22,19 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Google Chrome
+      - name: Install Chrome
         run: |
           sudo apt update
           sudo apt install -y google-chrome-stable
 
-      - name: Give permission to Gradle
+      - name: Give permission
         run: chmod +x gradlew
 
-      - name: Run Tests
+      - name: Run Test
         run: ./gradlew test
 
-      - name: Upload Test Report
+      - name: Upload Report
         uses: actions/upload-artifact@v4
         with:
-          name: test-report
+          name: report
           path: app/build/reports/

@@ -1,7 +1,6 @@
 package pages;
 
 import org.openqa.selenium.chrome.ChromeOptions;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.By;
@@ -17,21 +16,16 @@ public class LoginPage {
     By username = By.id("username");
     By password = By.id("password");
     By loginBtn = By.cssSelector("button[type='submit']");
-    By successMsg = By.id("flash");
+    By message = By.id("flash");
 
     public LoginPage() {
 
-        WebDriverManager.chromedriver().setup();
-
         ChromeOptions options = new ChromeOptions();
 
-        // 🔥 FIX CI
-        options.setBinary("/usr/bin/google-chrome");
-
+        // 🔥 CI READY
         options.addArguments("--headless=new");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
-        options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-gpu");
 
         this.driver = new ChromeDriver(options);
@@ -56,7 +50,7 @@ public class LoginPage {
 
     public String getMessage() {
         return wait.until(
-            ExpectedConditions.visibilityOfElementLocated(successMsg)
+            ExpectedConditions.visibilityOfElementLocated(message)
         ).getText();
     }
 
