@@ -1,7 +1,7 @@
 package steps;
 
 import io.cucumber.java.After;
-import pages.DriverManager;
+import utils.DriverManager;
 
 public class Hooks {
 

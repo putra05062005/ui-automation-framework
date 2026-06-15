@@ -13,9 +13,10 @@ public class CheckoutSteps {
     CheckoutPage checkout = new CheckoutPage();
 
     @Given("user login ke saucedemo")
-    public void userLogin() {
+    public void loginSauce() {
         login.open();
         login.login("standard_user", "secret_sauce");
+        assertTrue(login.isLoginSuccess());
     }
 
     @When("user melakukan checkout produk")
@@ -31,8 +32,6 @@ public class CheckoutSteps {
 
     @Then("checkout berhasil")
     public void success() {
-    assertTrue(
-        DriverManager.getDriver().getCurrentUrl().contains("checkout-complete")
-    );
-}
+        assertTrue(checkout.isCheckoutSuccess());
+    }
 }

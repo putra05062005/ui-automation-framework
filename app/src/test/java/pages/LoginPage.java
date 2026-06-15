@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
+import utils.DriverManager;
 
 import java.time.Duration;
 
@@ -26,7 +27,7 @@ public class LoginPage {
     }
 
     public void login(String user, String pass) {
-        driver.findElement(username).sendKeys(user);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(username)).sendKeys(user);
         driver.findElement(password).sendKeys(pass);
         driver.findElement(loginBtn).click();
     }
@@ -43,9 +44,7 @@ public class LoginPage {
 
     public boolean isErrorDisplayed() {
         try {
-            return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(errorMessage)
-            ).isDisplayed();
+            return driver.findElement(errorMessage).isDisplayed();
         } catch (Exception e) {
             return false;
         }
