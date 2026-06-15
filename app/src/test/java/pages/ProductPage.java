@@ -24,6 +24,9 @@ public class ProductPage {
     }
 
     public void goToCart() {
-        wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click();
-    }
+    wait.until(ExpectedConditions.visibilityOfElementLocated(cartIcon));
+    wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click();
+
+    wait.until(ExpectedConditions.urlContains("cart"));
+}
 }
