@@ -1,43 +1,44 @@
 name: Automation Test CI
 
 on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+push:
+branches: [ "main" ]
+pull_request:
+branches: [ "main" ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
+test:
+runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v4
 
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+  - name: Setup Java
+    uses: actions/setup-java@v4
+    with:
+      distribution: 'temurin'
+      java-version: '17'
 
-      # INSTALL CHROME + DRIVER OTOMATIS
-      - name: Setup Chrome
-        uses: browser-actions/setup-chrome@v1
+  # Install Chrome
+  - name: Setup Chrome
+    uses: browser-actions/setup-chrome@v1
 
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+  # Install ChromeDriver
+  - name: Setup ChromeDriver
+    uses: nanasess/setup-chromedriver@v2
 
-      # PERMISSION GRADLE
-      - name: Grant execute permission
-        run: chmod +x gradlew
+  # Grant permission
+  - name: Grant execute permission
+    run: chmod +x gradlew
 
-      # RUN TEST
-      - name: Run Test
-        run: ./gradlew clean test
+  # Run test
+  - name: Run Test
+    run: ./gradlew clean test
 
-      # UPLOAD REPORT
-      - name: Upload Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-report
-          path: app/build/reports/
+  # Upload report
+  - name: Upload Report
+    uses: actions/upload-artifact@v4
+    with:
+      name: test-report
+      path: app/build/reports/
