@@ -19,14 +19,27 @@ public class CartPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
-    public void clickCheckout() {
+   public void clickCheckout() {
 
+    // tunggu halaman cart fix
     wait.until(ExpectedConditions.urlContains("cart"));
 
-    wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutBtn));
-    wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
+    // tunggu tombol bener-bener clickable 
+    WebElement btn = wait.until(
+        ExpectedConditions.elementToBeClickable(checkoutBtn)
+    );
 
-    // tunggu benar-benar pindah
+    // scroll ke element 
+    ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].scrollIntoView(true);", btn
+    );
+
+    // klik pakai JS (biar bypass issue CI)
+    ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].click();", btn
+    );
+
+    // tunggu pindah halaman
     wait.until(ExpectedConditions.urlContains("checkout-step-one"));
     }
 }

@@ -25,14 +25,12 @@ public class CheckoutPage {
 
     public void fillForm() {
 
-    // tunggu halaman step one ready
     wait.until(ExpectedConditions.urlContains("checkout-step-one"));
 
     wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
     wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
     wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
     }
-
     public void continueCheckout() {
     wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
 
