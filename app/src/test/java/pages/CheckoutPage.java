@@ -34,16 +34,15 @@ public class CheckoutPage {
     public void continueCheckout() {
     wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
 
-    // tunggu pindah ke step 2
+    // WAJIB tunggu pindah halaman
     wait.until(ExpectedConditions.urlContains("checkout-step-two"));
 }
 
     public void finishCheckout() {
     wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
 
-    // tunggu halaman success
     wait.until(ExpectedConditions.urlContains("checkout-complete"));
-    }
+}
 
     public boolean isCheckoutSuccess() {
         try {

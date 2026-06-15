@@ -21,25 +21,20 @@ public class CartPage {
 
    public void clickCheckout() {
 
-    // tunggu halaman cart fix
     wait.until(ExpectedConditions.urlContains("cart"));
 
-    // tunggu tombol bener-bener clickable 
     WebElement btn = wait.until(
         ExpectedConditions.elementToBeClickable(checkoutBtn)
     );
 
-    // scroll ke element 
     ((JavascriptExecutor) driver).executeScript(
         "arguments[0].scrollIntoView(true);", btn
     );
 
-    // klik pakai JS (biar bypass issue CI)
     ((JavascriptExecutor) driver).executeScript(
         "arguments[0].click();", btn
     );
 
-    // tunggu pindah halaman
     wait.until(ExpectedConditions.urlContains("checkout-step-one"));
-    }
+}
 }
