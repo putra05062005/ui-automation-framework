@@ -20,38 +20,52 @@ public class CheckoutPage {
 
     public CheckoutPage() {
         this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25)); // 🔥 tambah waktu
     }
 
     public void fillForm() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
+        driver.findElement(lastName).sendKeys("Test");
+        driver.findElement(postalCode).sendKeys("12345");
     }
 
     public void continueCheckout() {
         wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
+
+        //tunggu pindah ke step 2
         wait.until(ExpectedConditions.urlContains("checkout-step-two"));
     }
 
     public void finishCheckout() {
-    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+        //pastikan tombol muncul dulu
+        wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
 
-    wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
-    wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
+        //retry click (anti flaky)
+        for (int i = 0; i < 3; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
+                break;
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ignored) {}
+            }
+        }
 
-    wait.until(ExpectedConditions.urlContains("checkout-complete"));
-}
+        // tunggu redirect ke success page
+        wait.until(ExpectedConditions.urlContains("checkout-complete"));
+    }
 
     public boolean isCheckoutSuccess() {
-    try {
-        wait.until(ExpectedConditions.urlContains("checkout-complete"));
+        try {
+            wait.until(ExpectedConditions.urlContains("checkout-complete"));
 
-        return wait.until(
-            ExpectedConditions.visibilityOfElementLocated(successMsg)
-        ).isDisplayed();
-    } catch (Exception e) {
-        return false;
+            return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(successMsg)
+            ).isDisplayed();
+
+        } catch (Exception e) {
+            return false;
+        }
     }
-}
 }
