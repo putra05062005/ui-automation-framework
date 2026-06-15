@@ -1,30 +1,39 @@
 name: Automation Test CI
-on: push: branches: [“main”] pull_request: branches: [“main”]
-jobs: test: runs-on: ubuntu-latest
-steps:
-  - name: Checkout code
-    uses: actions/checkout@v4
 
-  - name: Setup Java
-    uses: actions/setup-java@v4
-    with:
-      distribution: temurin
-      java-version: 17
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
-  - name: Setup Chrome
-    uses: browser-actions/setup-chrome@v1
+jobs:
+  test:
+    runs-on: ubuntu-latest
 
-  - name: Setup ChromeDriver
-    uses: nanasess/setup-chromedriver@v2
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  - name: Grant execute permission
-    run: chmod +x gradlew
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
 
-  - name: Run Test
-    run: ./gradlew clean test
+      - name: Setup Chrome
+        uses: browser-actions/setup-chrome@v1
 
-  - name: Upload Report
-    uses: actions/upload-artifact@v4
-    with:
-      name: test-report
-      path: app/build/reports/
+      - name: Setup ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+
+      - name: Grant execute permission
+        run: chmod +x gradlew
+
+      - name: Run Test
+        run: ./gradlew clean test
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: app/build/reports/
