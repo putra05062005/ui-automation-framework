@@ -21,8 +21,7 @@ public class LoginSteps {
 
     @Then("user berhasil login")
     public void success() {
-        // kalau login sukses, URL berubah
-        assertTrue(pages.BasePage.getDriver().getCurrentUrl().contains("inventory"));
+        assertTrue(login.isLoginSuccess());
     }
 
     @Then("user gagal login")

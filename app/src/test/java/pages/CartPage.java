@@ -1,12 +1,18 @@
 package pages;
 
-import org.openqa.selenium.By;
+import org.openqa.selenium.*;
 
-public class CartPage extends BasePage {
+public class CartPage {
 
-    By checkout = By.id("checkout");
+    WebDriver driver;
+
+    By checkoutBtn = By.id("checkout");
+
+    public CartPage() {
+        this.driver = DriverManager.getDriver();
+    }
 
     public void clickCheckout() {
-        getDriver().findElement(checkout).click();
+        driver.findElement(checkoutBtn).click();
     }
 }

@@ -1,32 +1,43 @@
 package pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.*;
 
-import java.time.Duration;
+public class CheckoutPage {
 
-public class CheckoutPage extends BasePage {
+    WebDriver driver;
 
     By firstName = By.id("first-name");
     By lastName = By.id("last-name");
-    By zip = By.id("postal-code");
+    By postalCode = By.id("postal-code");
     By continueBtn = By.id("continue");
     By finishBtn = By.id("finish");
-    By successMsg = By.className("complete-header");
 
-    public void fillData() {
-        getDriver().findElement(firstName).sendKeys("Pahala");
-        getDriver().findElement(lastName).sendKeys("Test");
-        getDriver().findElement(zip).sendKeys("12345");
+    public CheckoutPage() {
+        this.driver = DriverManager.getDriver();
+    }
+
+    public void fillForm() {
+        driver.findElement(firstName).sendKeys("Pahala");
+        driver.findElement(lastName).sendKeys("Test");
+        driver.findElement(postalCode).sendKeys("12345");
+    }
+
+    public void continueCheckout() {
+        driver.findElement(continueBtn).click();
     }
 
     public void finishCheckout() {
-        getDriver().findElement(continueBtn).click();
-        getDriver().findElement(finishBtn).click();
+        driver.findElement(finishBtn).click();
     }
+    By successMessage = By.className("complete-header");
 
-    public String getSuccessMessage() {
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg)).getText();
+    public boolean isCheckoutSuccess() {
+        try {
+        return driver.findElement(successMessage)
+                     .getText()
+                     .contains("Thank you");
+    } catch (Exception e) {
+        return false;
     }
+}
 }

@@ -12,31 +12,27 @@ public class CheckoutSteps {
     CartPage cart = new CartPage();
     CheckoutPage checkout = new CheckoutPage();
 
-
-    @When("user login dengan akun valid")
-    public void loginStep() {
+    @Given("user login ke saucedemo")
+    public void userLogin() {
+        login.open();
         login.login("standard_user", "secret_sauce");
     }
 
-    @And("user memilih produk")
-    public void productStep() {
+    @When("user melakukan checkout produk")
+    public void checkoutFlow() {
         product.addProduct();
-    }
-
-    @And("user masuk ke cart")
-    public void cartStep() {
         product.goToCart();
-    }
-
-    @And("user checkout")
-    public void checkoutStep() {
         cart.clickCheckout();
-        checkout.fillData();
+
+        checkout.fillForm();
+        checkout.continueCheckout();
         checkout.finishCheckout();
     }
 
-    @Then("user berhasil checkout")
+    @Then("checkout berhasil")
     public void success() {
-        assertTrue(checkout.getSuccessMessage().contains("Thank you"));
-    }
+    assertTrue(
+        DriverManager.getDriver().getCurrentUrl().contains("checkout-complete")
+    );
+}
 }
