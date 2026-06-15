@@ -35,17 +35,23 @@ public class CheckoutPage {
     }
 
     public void finishCheckout() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
-        wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
-    }
+    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+
+    wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
+    wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
+
+    wait.until(ExpectedConditions.urlContains("checkout-complete"));
+}
 
     public boolean isCheckoutSuccess() {
-        try {
-            return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(successMsg)
-            ).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+    try {
+        wait.until(ExpectedConditions.urlContains("checkout-complete"));
+
+        return wait.until(
+            ExpectedConditions.visibilityOfElementLocated(successMsg)
+        ).isDisplayed();
+    } catch (Exception e) {
+        return false;
     }
+}
 }
