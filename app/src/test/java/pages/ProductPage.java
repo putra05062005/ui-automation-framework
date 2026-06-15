@@ -28,9 +28,9 @@ public class ProductPage {
     }
 
     public void goToCart() {
-        wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click();
+    wait.until(ExpectedConditions.elementToBeClickable(cartIcon)).click();
 
-        // tunggu page cart
-        wait.until(ExpectedConditions.urlContains("cart"));
-    }
+    // tunggu masuk cart
+    wait.until(ExpectedConditions.urlContains("cart"));
+}
 }

@@ -21,13 +21,12 @@ public class CartPage {
 
     public void clickCheckout() {
 
-        wait.until(ExpectedConditions.urlContains("cart"));
+    wait.until(ExpectedConditions.urlContains("cart"));
 
-        // pastikan ada item
-        wait.until(ExpectedConditions.visibilityOfElementLocated(cartItem));
+    wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutBtn));
+    wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
 
-        wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
-
-        wait.until(ExpectedConditions.urlContains("checkout-step-one"));
+    // tunggu benar-benar pindah
+    wait.until(ExpectedConditions.urlContains("checkout-step-one"));
     }
 }
