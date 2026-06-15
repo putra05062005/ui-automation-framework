@@ -1,99 +1,144 @@
-# UI Automation Testing Framework
+# 🚀 UI Automation Framework (Selenium + Cucumber + CI/CD)
 
 ## 📌 Overview
-This project is a web UI automation testing framework built using Java, Selenium, Cucumber, and Gradle.
 
-The framework is designed to automate testing of a login feature using Behavior-Driven Development (BDD) approach.
+This project is a UI Automation Testing Framework built using **Java, Selenium WebDriver, and Cucumber (BDD)**.
+It implements **Page Object Model (POM)** and integrates with **GitHub Actions** for continuous integration.
 
----
+The framework covers:
 
-## ⚙️ Technologies Used
-- Java
-- Gradle
-- Selenium WebDriver
-- Cucumber (BDD)
-- JUnit
+* Login testing (positive, negative, boundary)
+* End-to-End (E2E) checkout flow
+* Automated test execution in CI environment
 
 ---
 
-## 🏗️ Project Structure
-# UI Automation Testing Framework
+## 🛠️ Tech Stack
 
-## 📌 Overview
-This project is a web UI automation testing framework built using Java, Selenium, Cucumber, and Gradle.
-
-The framework is designed to automate testing of a login feature using Behavior-Driven Development (BDD) approach.
-
----
-
-## ⚙️ Technologies Used
-- Java
-- Gradle
-- Selenium WebDriver
-- Cucumber (BDD)
-- JUnit
+* Java
+* Selenium WebDriver
+* Cucumber (BDD)
+* JUnit 5
+* Gradle
+* GitHub Actions (CI/CD)
 
 ---
 
-## 🏗️ Project Structure
-src/test/java/
-├── pages/ → Page Object Model (POM)
-├── steps/ → Step Definitions
-└── runner/ → Test Runner
+## 🧱 Project Structure
 
-src/test/resources/
-└── features/ → Gherkin Test Cases
+```
+pages/
+ ├── BasePage.java
+ ├── LoginPage.java
+ ├── ProductPage.java
+ ├── CartPage.java
+ └── CheckoutPage.java
 
+steps/
+ ├── Hooks.java
+ ├── LoginSteps.java
+ └── CheckoutSteps.java
 
----
-
-## 🧪 Test Scenarios
-
-### ✅ Positive Test
-- Login with valid credentials
-
-### ❌ Negative Test
-- Login with invalid credentials
-
-### ⚠️ Boundary Test
-- Login with empty input
+features/
+ ├── login.feature
+ └── checkout.feature
+```
 
 ---
 
-## 🚀 How to Run
+## ✅ Test Scenarios
+
+### 🔐 Login Testing
+
+* ✔ Valid login (success)
+* ✔ Invalid login (wrong credentials)
+* ✔ Empty login (boundary case)
+
+### 🛒 End-to-End Checkout
+
+* Login to system
+* Select product
+* Add to cart
+* Proceed to checkout
+* Complete order
+* Verify success message
+
+---
+
+## ▶️ How to Run (Local)
+
+Run all tests:
+
+```
+./gradlew clean test
+```
+
+Run with visible browser:
+
+```
 ./gradlew test
+```
 
+Run in headless mode:
+
+```
+./gradlew test -Dheadless=true
+```
+
+---
+
+## ⚙️ CI/CD Integration
+
+This project uses **GitHub Actions** to automatically run tests on every:
+
+* Push
+* Pull Request
+
+Pipeline includes:
+
+* Java setup
+* Chrome installation
+* Test execution
+* Test report upload
 
 ---
 
 ## 📊 Test Report
 
-After running the test, the report will be generated at:
-app/build/reports/cucumber-report.html
+After execution, reports are generated in:
 
+```
+app/build/reports/
+```
 
+In CI, reports are uploaded as artifacts.
 
 ---
 
 ## 🔥 Key Features
 
-- Automated UI testing using Selenium
-- BDD testing using Cucumber
-- Page Object Model implementation
-- Structured test framework
-- HTML test report generation
+* Page Object Model (POM) design pattern
+* Behavior Driven Development (BDD)
+* Parameterized test steps
+* Reusable WebDriver setup
+* Headless browser support for CI
+* End-to-End testing workflow
 
 ---
 
-## 🎯 Learning Outcome
+## 🎯 Purpose
 
-- UI Automation Testing
-- BDD (Behavior Driven Development)
-- Test framework design
-- Selenium WebDriver usage
+This project demonstrates:
+
+* Automation testing skills
+* CI/CD integration
+* Real-world testing workflow
+* Debugging in different environments (local vs CI)
 
 ---
 
 ## 👨‍💻 Author
 
 Pahala Putra Tambunan
+
+---

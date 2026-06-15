@@ -9,8 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Java
         uses: actions/setup-java@v4
@@ -18,7 +17,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Chrome + Driver
+      - name: Install Chrome
         run: |
           sudo apt update
           sudo apt install -y chromium-browser chromium-chromedriver
@@ -27,7 +26,7 @@ jobs:
         run: chmod +x gradlew
 
       - name: Run Test
-        run: ./gradlew clean test
+        run: ./gradlew clean test -Dheadless=true
 
       - name: Upload Report
         uses: actions/upload-artifact@v4

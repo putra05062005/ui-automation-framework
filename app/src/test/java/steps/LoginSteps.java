@@ -7,52 +7,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginSteps {
 
-    LoginPage loginPage;
+    LoginPage login = new LoginPage();
 
-    @Given("saya membuka halaman login")
-    public void openLogin() {
-        loginPage = new LoginPage();
-        loginPage.open();
+    @Given("user membuka website")
+    public void open() {
+        login.open();
     }
 
-    @When("saya memasukkan username dan password yang benar")
-    public void inputValid() {
-        loginPage.inputUsername("tomsmith");
-        loginPage.inputPassword("SuperSecretPassword!");
+    @When("user login dengan username {string} dan password {string}")
+    public void loginStep(String user, String pass) {
+        login.login(user, pass);
     }
 
-    @When("saya memasukkan username dan password yang salah")
-    public void inputInvalid() {
-        loginPage.inputUsername("wrong");
-        loginPage.inputPassword("wrong");
-    }
-
-    @When("saya memasukkan username kosong")
-    public void inputEmpty() {
-        loginPage.inputUsername("");
-        loginPage.inputPassword("");
-    }
-
-    @And("saya klik tombol login")
-    public void clickLogin() {
-        loginPage.clickLogin();
-    }
-
-    @Then("saya berhasil login")
+    @Then("user berhasil login")
     public void success() {
-        assertTrue(loginPage.getMessage().contains("You logged into a secure area!"));
-        loginPage.close();
+        // kalau login sukses, URL berubah
+        assertTrue(pages.BasePage.getDriver().getCurrentUrl().contains("inventory"));
     }
 
-    @Then("saya gagal login")
-    public void failed() {
-        assertTrue(loginPage.getMessage().contains("Your username is invalid!"));
-        loginPage.close();
+    @Then("user gagal login")
+    public void fail() {
+        assertTrue(login.isErrorDisplayed());
     }
 
-    @Then("saya melihat error kosong")
+    @Then("user melihat error login")
     public void empty() {
-        assertTrue(loginPage.getMessage().contains("Your username is invalid!"));
-        loginPage.close();
+        assertTrue(login.isErrorDisplayed());
     }
 }
