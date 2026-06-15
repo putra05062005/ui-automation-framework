@@ -1,144 +1,46 @@
-# 🚀 UI Automation Framework (Selenium + Cucumber + CI/CD)
+# UI Automation Framework 🚀
 
-## 📌 Overview
-
-This project is a UI Automation Testing Framework built using **Java, Selenium WebDriver, and Cucumber (BDD)**.
-It implements **Page Object Model (POM)** and integrates with **GitHub Actions** for continuous integration.
-
-The framework covers:
-
-* Login testing (positive, negative, boundary)
-* End-to-End (E2E) checkout flow
-* Automated test execution in CI environment
-
----
-
-## 🛠️ Tech Stack
+This project is a UI Automation Testing Framework built using:
 
 * Java
 * Selenium WebDriver
 * Cucumber (BDD)
-* JUnit 5
 * Gradle
 * GitHub Actions (CI/CD)
 
----
+## ✅ Features
 
-## 🧱 Project Structure
+* Page Object Model (POM)
+* End-to-End Checkout Test (SauceDemo)
+* Login Test Scenarios
+* CI Automation with GitHub Actions
+* Headless browser support for CI
 
-```
-pages/
- ├── BasePage.java
- ├── LoginPage.java
- ├── ProductPage.java
- ├── CartPage.java
- └── CheckoutPage.java
+## 🧪 Test Coverage
 
-steps/
- ├── Hooks.java
- ├── LoginSteps.java
- └── CheckoutSteps.java
+* Login Success
+* Login Failed
+* Login Empty Input
+* End-to-End Checkout Flow
 
-features/
- ├── login.feature
- └── checkout.feature
-```
+## ⚙️ How to Run
 
----
-
-## ✅ Test Scenarios
-
-### 🔐 Login Testing
-
-* ✔ Valid login (success)
-* ✔ Invalid login (wrong credentials)
-* ✔ Empty login (boundary case)
-
-### 🛒 End-to-End Checkout
-
-* Login to system
-* Select product
-* Add to cart
-* Proceed to checkout
-* Complete order
-* Verify success message
-
----
-
-## ▶️ How to Run (Local)
-
-Run all tests:
-
-```
+```bash
 ./gradlew clean test
 ```
 
-Run with visible browser:
+## 🚀 CI/CD
 
-```
-./gradlew test
-```
+This project uses GitHub Actions to automatically run tests on every push.
 
-Run in headless mode:
+## 📊 Reports
 
-```
-./gradlew test -Dheadless=true
-```
-
----
-
-## ⚙️ CI/CD Integration
-
-This project uses **GitHub Actions** to automatically run tests on every:
-
-* Push
-* Pull Request
-
-Pipeline includes:
-
-* Java setup
-* Chrome installation
-* Test execution
-* Test report upload
-
----
-
-## 📊 Test Report
-
-After execution, reports are generated in:
+Test reports are generated in:
 
 ```
 app/build/reports/
 ```
 
-In CI, reports are uploaded as artifacts.
-
----
-
-## 🔥 Key Features
-
-* Page Object Model (POM) design pattern
-* Behavior Driven Development (BDD)
-* Parameterized test steps
-* Reusable WebDriver setup
-* Headless browser support for CI
-* End-to-End testing workflow
-
----
-
-## 🎯 Purpose
-
-This project demonstrates:
-
-* Automation testing skills
-* CI/CD integration
-* Real-world testing workflow
-* Debugging in different environments (local vs CI)
-
----
-
 ## 👨‍💻 Author
 
 Pahala Putra Tambunan
-
----
