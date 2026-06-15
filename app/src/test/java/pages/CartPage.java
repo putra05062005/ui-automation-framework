@@ -12,6 +12,7 @@ public class CartPage {
     WebDriverWait wait;
 
     By checkoutBtn = By.id("checkout");
+    By cartItem = By.className("cart_item");
 
     public CartPage() {
         this.driver = DriverManager.getDriver();
@@ -20,14 +21,13 @@ public class CartPage {
 
     public void clickCheckout() {
 
-        //  tunggu URL cart 
         wait.until(ExpectedConditions.urlContains("cart"));
 
-        //  tombol muncul & clickable
-        wait.until(ExpectedConditions.visibilityOfElementLocated(checkoutBtn));
+        // pastikan ada item
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartItem));
+
         wait.until(ExpectedConditions.elementToBeClickable(checkoutBtn)).click();
 
-        //  tunggu pindah ke checkout step 1
         wait.until(ExpectedConditions.urlContains("checkout-step-one"));
     }
 }

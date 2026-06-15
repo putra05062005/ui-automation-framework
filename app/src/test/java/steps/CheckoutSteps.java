@@ -21,7 +21,6 @@ public class CheckoutSteps {
 
         assertTrue(login.isLoginSuccess());
 
-        // 🔥 INIT SETELAH LOGIN
         product = new ProductPage();
     }
 
@@ -31,11 +30,9 @@ public class CheckoutSteps {
         product.addProduct();
         product.goToCart();
 
-        // init setelah pindah page
         cart = new CartPage();
         cart.clickCheckout();
 
-        // init setelah masuk checkout
         checkout = new CheckoutPage();
 
         checkout.fillForm();

@@ -14,12 +14,12 @@ public class LoginPage {
     By username = By.id("user-name");
     By password = By.id("password");
     By loginBtn = By.id("login-button");
-    By errorMessage = By.cssSelector("[data-test='error']");
     By inventoryPage = By.className("inventory_list");
+    By errorMessage = By.cssSelector("[data-test='error']");
 
     public LoginPage() {
         this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void open() {
@@ -32,19 +32,21 @@ public class LoginPage {
         driver.findElement(loginBtn).click();
     }
 
-    public boolean isLoginSuccess() {
+    public boolean isErrorDisplayed() {
         try {
             return wait.until(
-                ExpectedConditions.visibilityOfElementLocated(inventoryPage)
+                ExpectedConditions.visibilityOfElementLocated(errorMessage)
             ).isDisplayed();
         } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean isErrorDisplayed() {
+    public boolean isLoginSuccess() {
         try {
-            return driver.findElement(errorMessage).isDisplayed();
+            return wait.until(
+                ExpectedConditions.visibilityOfElementLocated(inventoryPage)
+            ).isDisplayed();
         } catch (Exception e) {
             return false;
         }
