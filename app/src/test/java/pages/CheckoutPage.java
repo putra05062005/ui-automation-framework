@@ -24,24 +24,25 @@ public class CheckoutPage {
     }
 
     public void fillForm() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
-        driver.findElement(lastName).sendKeys("Test");
-        driver.findElement(postalCode).sendKeys("12345");
+    wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
+
+    wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
+
+    wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
     }
 
     public void continueCheckout() {
-        wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
+    wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
 
-        wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
     }
 
     public void finishCheckout() {
+    wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
+    wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
 
-        wait.until(ExpectedConditions.visibilityOfElementLocated(finishBtn));
-
-        wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
-
-        wait.until(ExpectedConditions.urlContains("checkout-complete"));
+    // tunggu halaman success
+    wait.until(ExpectedConditions.urlContains("checkout-complete"));
     }
 
     public boolean isCheckoutSuccess() {
