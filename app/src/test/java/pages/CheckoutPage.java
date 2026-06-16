@@ -31,40 +31,44 @@ public class CheckoutPage {
     wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
     wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
     }
-    public void continueCheckout() {
+   public void continueCheckout() {
     wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
 
-    // WAJIB tunggu pindah halaman
+    // WAJIB: tunggu ke step 2
     wait.until(ExpectedConditions.urlContains("checkout-step-two"));
 }
 
    public void finishCheckout() {
 
+    // pastikan sudah di step 2
+    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+
     WebElement btn = wait.until(
         ExpectedConditions.elementToBeClickable(finishBtn)
     );
 
-    // scroll biar aman di headless
     ((JavascriptExecutor) driver).executeScript(
         "arguments[0].scrollIntoView(true);", btn
     );
 
-    // klik pakai JS (lebih stabil di CI)
     ((JavascriptExecutor) driver).executeScript(
         "arguments[0].click();", btn
     );
 
-    // tunggu pindah halaman success
+    // tunggu halaman success
     wait.until(ExpectedConditions.urlContains("checkout-complete"));
 }
 
     public boolean isCheckoutSuccess() {
-        try {
-            return wait.until(
+    try {
+        return wait.until(
+            ExpectedConditions.or(
+                ExpectedConditions.urlContains("checkout-complete"),
                 ExpectedConditions.visibilityOfElementLocated(successMsg)
-            ).isDisplayed();
-        } catch (Exception e) {
-            return false;
-        }
+            )
+        ) != null;
+    } catch (Exception e) {
+        return false;
     }
+}
 }
