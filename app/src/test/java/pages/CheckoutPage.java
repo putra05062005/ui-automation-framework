@@ -38,9 +38,23 @@ public class CheckoutPage {
     wait.until(ExpectedConditions.urlContains("checkout-step-two"));
 }
 
-    public void finishCheckout() {
-    wait.until(ExpectedConditions.elementToBeClickable(finishBtn)).click();
+   public void finishCheckout() {
 
+    WebElement btn = wait.until(
+        ExpectedConditions.elementToBeClickable(finishBtn)
+    );
+
+    // scroll biar aman di headless
+    ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].scrollIntoView(true);", btn
+    );
+
+    // klik pakai JS (lebih stabil di CI)
+    ((JavascriptExecutor) driver).executeScript(
+        "arguments[0].click();", btn
+    );
+
+    // tunggu pindah halaman success
     wait.until(ExpectedConditions.urlContains("checkout-complete"));
 }
 
