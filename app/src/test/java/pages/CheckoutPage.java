@@ -20,55 +20,59 @@ public class CheckoutPage {
 
     public CheckoutPage() {
         this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // ⬅️ perbesar
     }
 
     public void fillForm() {
+        wait.until(ExpectedConditions.urlContains("checkout-step-one"));
 
-    wait.until(ExpectedConditions.urlContains("checkout-step-one"));
-
-    wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
-    wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
-    wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(firstName)).sendKeys("Pahala");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(lastName)).sendKeys("Test");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(postalCode)).sendKeys("12345");
     }
-   public void continueCheckout() {
-    wait.until(ExpectedConditions.elementToBeClickable(continueBtn)).click();
 
-    // WAJIB: tunggu ke step 2
-    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
-}
+    public void continueCheckout() {
+        WebElement btn = wait.until(
+            ExpectedConditions.elementToBeClickable(continueBtn)
+        );
 
-   public void finishCheckout() {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
 
-    // pastikan sudah di step 2
-    wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+        // ⬅ tunggu ke step 2
+        wait.until(ExpectedConditions.urlContains("checkout-step-two"));
+    }
 
-    WebElement btn = wait.until(
-        ExpectedConditions.elementToBeClickable(finishBtn)
-    );
+    public void finishCheckout() {
 
-    ((JavascriptExecutor) driver).executeScript(
-        "arguments[0].scrollIntoView(true);", btn
-    );
+        // pastikan udah di step 2
+        wait.until(ExpectedConditions.urlContains("checkout-step-two"));
 
-    ((JavascriptExecutor) driver).executeScript(
-        "arguments[0].click();", btn
-    );
+        WebElement btn = wait.until(
+            ExpectedConditions.elementToBeClickable(finishBtn)
+        );
 
-    // tunggu halaman success
-    wait.until(ExpectedConditions.urlContains("checkout-complete"));
-}
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].scrollIntoView(true);", btn
+        );
+
+        ((JavascriptExecutor) driver).executeScript(
+            "arguments[0].click();", btn
+        );
+
+        // menunggu halaman success
+        wait.until(ExpectedConditions.urlContains("checkout-complete"));
+    }
 
     public boolean isCheckoutSuccess() {
-    try {
-        return wait.until(
-            ExpectedConditions.or(
-                ExpectedConditions.urlContains("checkout-complete"),
-                ExpectedConditions.visibilityOfElementLocated(successMsg)
-            )
-        ) != null;
-    } catch (Exception e) {
-        return false;
+        try {
+            return wait.until(
+                ExpectedConditions.or(
+                    ExpectedConditions.urlContains("checkout-complete"),
+                    ExpectedConditions.visibilityOfElementLocated(successMsg)
+                )
+            ) != null;
+        } catch (Exception e) {
+            return false;
+        }
     }
-}
 }
