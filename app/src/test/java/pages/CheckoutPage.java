@@ -20,7 +20,7 @@ public class CheckoutPage {
 
     public CheckoutPage() {
         this.driver = DriverManager.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30)); // ⬅️ perbesar
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(30));
     }
 
     public void fillForm() {
@@ -38,13 +38,10 @@ public class CheckoutPage {
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", btn);
 
-        // ⬅ tunggu ke step 2
         wait.until(ExpectedConditions.urlContains("checkout-step-two"));
     }
 
     public void finishCheckout() {
-
-        // pastikan udah di step 2
         wait.until(ExpectedConditions.urlContains("checkout-step-two"));
 
         WebElement btn = wait.until(
@@ -59,7 +56,6 @@ public class CheckoutPage {
             "arguments[0].click();", btn
         );
 
-        // menunggu halaman success
         wait.until(ExpectedConditions.urlContains("checkout-complete"));
     }
 
